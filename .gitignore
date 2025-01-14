@@ -1,0 +1,44 @@
+# Application
+web/app/plugins/*
+!web/app/plugins/.gitkeep
+web/app/mu-plugins/*/
+web/app/themes/twentytwentyfive/
+web/app/upgrade
+web/app/uploads/*
+!web/app/uploads/.gitkeep
+web/app/cache/*
+web/app/themes/*/node_modules/
+web/app/themes/node_modules/
+
+# Ignore Composer dependencies
+/vendor/
+/composer.lock
+
+# Ignore Node dependencies
+/node_modules/
+/package-lock.json
+/yarn.lock
+
+# Ignore Bedrock environment files
+/.env
+
+# Ignore DDEV environment files
+.ddev/
+
+# WordPress
+web/wp
+web/.htaccess
+
+# Logs
+*.log
+
+# Dotenv
+.env
+.env.*
+!.env.example
+
+# Composer
+/vendor
+
+# WP-CLI
+wp-cli.local.yml

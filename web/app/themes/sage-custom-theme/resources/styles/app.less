@@ -1,0 +1,332 @@
+// Optional: Custom menu styles
+nav {
+  ul {
+    li {
+      a {
+        @apply px-4 py-2 block hover:bg-blue-800 text-[15px];
+      }
+    }
+
+    ul {
+      @apply hidden group-hover:block absolute bg-blue-800 text-white shadow-lg;
+
+      ul {
+        @apply bg-blue-900;
+      }
+    }
+  }
+}
+
+// Corrected Rule for Direct Child Elements
+.group {
+  &:hover {
+    .group-hover\:block {
+      display: none !important;
+    }
+
+    > .group-hover\:block {
+      display: block !important;
+    }
+  }
+}
+
+.dropdown {
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -1rem; // Adjust as needed
+    left: 0;
+    width: 100%;
+    height: 1rem;
+    background: transparent;
+  }
+}
+
+.caret-right {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  width: 6px;
+  height: 10px;
+  background-color: black; // Default color matches text
+  clip-path: polygon(100% 50%, 0 0, 0 100%); // Creates the triangle
+  transform: translateY(-50%);
+  // transition: background-color 0.3s; // Smooth transition for hover effect
+}
+
+.submenu {
+  .group:hover {
+    .caret-right {
+      background-color: #fff; // Change color on hover
+    }
+  }
+}
+
+// Keep level 2 highlighted when hovering over level 3
+.group {
+  &:hover {
+    .group:hover > a {
+      background-color: #ba2c73; // Keep level 2 highlighted
+      color: white;
+    }
+  }
+}
+
+.alignright {
+  float: right;
+}
+
+.clearfix {
+  &::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+}
+
+// Active menu item styles
+.menu-item.active > a {
+  background-color: #ba2c73; // Match hover background color
+  color: white; // Match hover text color
+}
+
+// Hide menu by default on mobile
+#menu {
+  display: none;
+
+  &.openmobile {
+    display: block;
+
+    ul.submenu {
+      display: block !important;
+    }
+  }
+}
+
+// Show menu on desktop
+@media (min-width: 1025px) {
+  #menu {
+    display: block;
+
+    // Add SVG icon for menu items with the 'first-level-icon' class
+    .first-level-icon > a::before {
+      content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="15" height="11" viewBox="0 0 15 13" fill="none"><path d="M2.34375 0.65625C2.57812 0.65625 2.8125 0.890625 2.8125 1.125V3C2.8125 3.26367 2.57812 3.46875 2.34375 3.46875H0.46875C0.205078 3.46875 0 3.26367 0 3V1.125C0 0.890625 0.205078 0.65625 0.46875 0.65625H2.34375ZM2.34375 5.34375C2.57812 5.34375 2.8125 5.57812 2.8125 5.8125V7.6875C2.8125 7.95117 2.57812 8.15625 2.34375 8.15625H0.46875C0.205078 8.15625 0 7.95117 0 7.6875V5.8125C0 5.57812 0.205078 5.34375 0.46875 5.34375H2.34375ZM2.34375 10.0312C2.57812 10.0312 2.8125 10.2656 2.8125 10.5V12.375C2.8125 12.6387 2.57812 12.8438 2.34375 12.8438H0.46875C0.205078 12.8438 0 12.6387 0 12.375V10.5C0 10.2656 0.205078 10.0312 0.46875 10.0312H2.34375ZM14.5312 6.04688C14.7656 6.04688 15 6.28125 15 6.51562V6.98438C15 7.24805 14.7656 7.45312 14.5312 7.45312H5.15625C4.89258 7.45312 4.6875 7.24805 4.6875 6.98438V6.51562C4.6875 6.28125 4.89258 6.04688 5.15625 6.04688H14.5312ZM14.5312 10.7344C14.7656 10.7344 15 10.9688 15 11.2031V11.6719C15 11.9355 14.7656 12.1406 14.5312 12.1406H5.15625C4.89258 12.1406 4.6875 11.9355 4.6875 11.6719V11.2031C4.6875 10.9688 4.89258 10.7344 5.15625 10.7344H14.5312ZM14.5312 1.35938C14.7656 1.35938 15 1.59375 15 1.82812V2.29688C15 2.56055 14.7656 2.76562 14.5312 2.76562H5.15625C4.89258 2.76562 4.6875 2.56055 4.6875 2.29688V1.82812C4.6875 1.59375 4.89258 1.35938 5.15625 1.35938H14.5312Z" fill="white"/></svg>');
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+  }
+}
+
+// Mobile menu improvements
+@media (max-width: 1024px) {
+  .caret-right {
+    display: none;
+  }
+
+  #menu {
+    position: absolute;
+    top: 50px;
+    background: #cecece;
+    padding-left: 0;
+    padding-right: 0;
+
+    ul {
+      flex-direction: column; // Stack menu items vertically
+      gap: 0; // Remove space between items
+
+      &.submenu {
+        margin-left: 0; // Indent submenus for better hierarchy
+        max-height: 40vh;
+        overflow-y: auto;
+        width: 100%;
+        padding-left: 1rem;
+        background: #fff;
+
+        .absolute {
+          position: unset;
+        }
+
+        .relative {
+          position: unset;
+        }
+      }
+    }
+  }
+}
+
+// General Footer Styles
+footer.content-info {
+  background-color: #201e50; // Dark background for contrast
+  color: white; // Text color
+  font-family: Arial, sans-serif; // Clean font
+  padding: 20px 15px;
+  border-top: 2px solid #4d4e7c; // Subtle top border
+
+  // Footer Widget Container
+  .widget {
+    margin-bottom: 20px; // Space between widgets
+
+    // Footer Widget Headings
+    h2 {
+      font-size: 1.5rem; // Larger heading
+      font-weight: bold;
+      margin-bottom: 10px; // Spacing below heading
+      border-bottom: 2px solid #ba2c73; // Accent underline
+      padding-bottom: 5px;
+    }
+  }
+
+  // Footer Lists
+  ul {
+    list-style-type: none; // Remove default bullet points
+    margin: 0;
+    padding: 0;
+
+    // Footer List Items
+    li {
+      margin-bottom: 8px; // Space between list items
+
+      // Footer Links
+      a {
+        color: #ba2c73; // Accent color for links
+        text-decoration: none;
+        font-size: 1rem; // Readable font size
+        transition: color 0.3s ease, text-decoration 0.3s ease;
+
+        &:hover {
+          color: #ffffff; // Bright white on hover
+          text-decoration: underline; // Underline on hover
+        }
+      }
+    }
+  }
+
+  // Footer Alignment and Layout
+  .widget_block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; // Align text to the left
+  }
+
+  // Footer Responsive Design
+  @media (min-width: 768px) {
+    display: flex;
+    justify-content: space-between; // Spread widgets horizontally
+
+    .widget {
+      margin-right: 20px; // Space between widgets
+      flex: 1; // Equal width for widgets
+
+      &:last-child {
+        margin-right: 0; // Remove margin from last widget
+      }
+    }
+  }
+}
+
+// General styles for the search page
+.search {
+  main.main {
+    background-color: #f8f9fa; // Light gray background for contrast
+    padding: 1rem; // Add padding for spacing
+    border-radius: 8px; // Slightly rounded corners for a modern look
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
+  }
+
+  // Page header styles
+  main {
+    .page-header {
+      margin-bottom: 2rem; // Add spacing below the header
+      text-align: center; // Center-align header text
+
+      h1 {
+        font-size: 2rem; // Larger font size for the header
+        font-weight: bold;
+        color: #201e50; // Primary brand color
+        border-bottom: 2px solid #ba2c73; // Accent underline
+        display: inline-block;
+        padding-bottom: 0.5rem;
+      }
+    }
+
+    // Styles for articles (search results)
+    article {
+      margin-bottom: 2rem; // Space between articles
+      padding: 1rem; // Add padding for internal spacing
+      border: 1px solid #ddd; // Light border for separation
+      border-radius: 8px; // Rounded corners for a modern look
+      background-color: #fff; // White background for contrast
+      transition: box-shadow 0.3s ease; // Smooth hover effect
+
+      &:hover {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); // Slight elevation on hover
+      }
+
+      // Entry title (article heading)
+      h2.entry-title {
+        font-size: 1.5rem; // Slightly larger font for titles
+        margin-bottom: 0.5rem; // Space below the title
+        color: #201e50; // Primary brand color
+
+        a {
+          color: #201e50; // Link color
+          text-decoration: none; // Remove underline
+          transition: color 0.3s ease; // Smooth transition for hover
+
+          &:hover {
+            color: #ba2c73; // Accent color on hover
+            text-decoration: underline; // Underline on hover
+          }
+        }
+      }
+
+      // Entry summary (excerpt)
+      .entry-summary {
+        font-size: 1rem; // Standard font size for summaries
+        color: #666; // Muted text color
+        line-height: 1.5; // Improve readability
+      }
+
+      // Styling the date and author info
+      time.dt-published,
+      .p-author {
+        display: inline-block;
+        font-size: 0.875rem; // Smaller font size
+        color: #999; // Muted gray for secondary text
+        margin-right: 1rem; // Space between metadata items
+
+        a {
+          color: #201e50; // Primary brand color for author link
+          text-decoration: none; // Remove underline
+          transition: color 0.3s ease;
+
+          &:hover {
+            color: #ba2c73; // Accent color on hover
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  // Media queries for responsiveness
+  @media (max-width: 768px) {
+    main {
+      .page-header h1 {
+        font-size: 1.5rem; // Adjust font size for smaller screens
+      }
+
+      article {
+        h2.entry-title {
+          font-size: 1.25rem; // Reduce title size on smaller screens
+        }
+
+        padding: 0.75rem; // Reduce padding on smaller screens
+      }
+    }
+  }
+}
